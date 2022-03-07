@@ -1,18 +1,22 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", function (req, res) {
-  res.send("Hello! Welcome to the guestbook application");
-});
+const controller = require("../controllers/guestbookControllers.js");
 
-router.get("/guestbook", function (req, res) {
-  res.send("<h1>Guestbook Messages</h1>");
+router.get("/", controller.landing_page);
+
+router.get("/guestbook", controller.entries_list);
+
+router.get("/new_entry", controller.new_entry);
+
+router.get("/about", function (req, res) {
+  res.redirect("/about.html");
 });
 
 router.use(function (req, res) {
   res.status(404);
   res.type("text/plain");
-  res.send("4040 Not Found");
+  res.send("404 Not Found");
 });
 
 router.use(function (err, req, res, next) {

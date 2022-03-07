@@ -1,10 +1,22 @@
 const express = require("express");
-const router = require("./controllers/guestbookRoutes");
+const router = require("./routes/guestbookRoutes");
 const app = express();
 
 const path = require("path");
 const public = path.join(__dirname, "public");
 app.use(express.static(public));
+
+app.use(express.urlencoded({ extended: false }));
+
+router.get("/about", function (req, res) {
+  res.redirect("/about.html");
+});
+
+router.use(function (req, res) {
+  res.status(404);
+  res.type("text/plain");
+  res.send("4040 Not Found");
+});
 
 app.use("/", router);
 
