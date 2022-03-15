@@ -1,21 +1,20 @@
 <html>
 
 <head>
-    <title>Mustache Example</title>
+    {{>header}}
 </head>
 
 <body>
     <h1>{{title}}</h1>
+    {{#entries}}
     <div>
-        <div>
-            <h4>{{subject}}</h4>
-            <p>
-                {{contents}}
-            </p>
-            <div>
-                The author's name will be displayed here
-            </div>
-        </div>
+        <h4>{{subject}}</h4>
+        <p>
+            {{contents}}
+        </p>
+    </div>
+    <hr>
+    {{/entries}}
 </body>
 
 </html>
