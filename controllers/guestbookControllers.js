@@ -11,7 +11,11 @@ exports.entries_list = function (req, res) {
 };
 
 exports.landing_page = function (req, res) {
-  res.send("<h1>Welcome to the guestbook application!</h1>");
+  res.render("entries", {
+    title: "Guest Book",
+    subject: "Good day out.",
+    contents: "We had a really good time visiting the museum.",
+  });
 };
 
 exports.new_entry = function (req, res) {
