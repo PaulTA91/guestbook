@@ -2,6 +2,10 @@ const express = require("express");
 const router = require("./routes/guestbookRoutes");
 const app = express();
 
+const mustache = require("mustache-express");
+app.engine("mustache", mustache());
+app.set("view engine", "mustache");
+
 const path = require("path");
 const public = path.join(__dirname, "public");
 app.use(express.static(public));
