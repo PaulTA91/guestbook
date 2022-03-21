@@ -11,23 +11,17 @@ exports.entries_list = function (req, res) {
 };
 
 exports.landing_page = function (req, res) {
-  res.render("entries", {
-    title: "Guest Book",
-    entries: [
-      {
-        subject: "Good day out",
-        contents: "We had a really good time visiting the museum.",
-      },
-      {
-        subject: "Good place to be on a rainy day.",
-        contents: "Nice paintings too.",
-      },
-      {
-        subject: "Yummy",
-        contents: "Good food :-).",
-      },
-    ],
-  });
+  db.getAllEntries()
+    .then((list) => {
+      res.render("entries", {
+        title: "Guest Book",
+        entries: list,
+      });
+      console.log("promise resolved");
+    })
+    .catch((err) => {
+      console.log("promise rejected", err);
+    });
 };
 
 exports.new_entry = function (req, res) {
