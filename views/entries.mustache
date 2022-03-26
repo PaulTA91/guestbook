@@ -6,20 +6,23 @@
 
 <body>
     <h1>{{title}}</h1>
+    <div class="text-right" style="padding: 10px;">
+        <a href="/new" class="btn btn-primary">
+            Write in the guestbook
+        </a>
+    </div>
     {{#entries}}
-    <div>
-        <h4>{{subject}}</h4>
-        <p>
-            {{contents}}
-        </p>
-    </div>
-    <div>
-        <p>Written by {{author}}, on {{published}}</p>
-    </div>
-    {{/entries}}
-    {{^entries}}
-    No entries yes
-    {{/entries}}
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{subject}}</h4>
+            <p class="card-text">
+                {{contents}}
+            </p>
+            <div class="card-footer">
+                <p>Written by <a href="/posts/{{author}}">{{author}}</a> , on {{published}}</p>
+            </div>
+        </div>
+        {{/entries}}
 </body>
 
 </html>

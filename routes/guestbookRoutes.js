@@ -13,6 +13,11 @@ router.get("/about", function (req, res) {
   res.redirect("/about.html");
 });
 
+router.get("/posts/:author", controller.show_user_entries);
+
+router.get("/new", controller.new_entry);
+router.post("/new", controller.post_new_entry);
+
 router.use(function (req, res) {
   res.status(404);
   res.type("text/plain");

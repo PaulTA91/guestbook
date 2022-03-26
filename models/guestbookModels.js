@@ -45,6 +45,36 @@ class GuestBook {
     });
   }
 
+  getEntriesByUser(authorName) {
+    return new Promise((resolve, reject) => {
+      this.db.find({ author: authorName }, function (err, entries) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(entries);
+          console.log("getEntriesByUser returns: ", entries);
+        }
+      });
+    });
+  }
+
+  addEntry(author, subject, contents) {
+    var entry = {
+      author: author,
+      subject: subject,
+      contents: contents,
+      published: new Date().toISOString.split("T")[0],
+    };
+    console.log("entry created", entry);
+    this.db.insert(entry, function (err, doc) {
+      if (err) {
+        console.log("Error inserting document", subject);
+      } else {
+        console.log("document inserted into the database", doc);
+      }
+    });
+  }
+
   getPetersEntries() {
     //return a Promise object, which can be resolved or rejected
     return new Promise((resolve, reject) => {
