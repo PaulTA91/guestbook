@@ -6,6 +6,23 @@
 
 <body>
     <h1>{{title}}</h1>
+    
+    <div class="text-right" style="margin-bottom: 1em; padding-right: 10px;">
+        {{^user}}
+        <a id="login" href="/register" class="btn btn-primary">
+            Register
+        </a>
+        <a id="login" href="/login" class="btn btn-primary">
+            Sign in
+        </a>
+        {{/user}}
+        {{#user}}
+        <a id="logout" href="/logout" class="btn btn-primary">
+            Sign out
+        </a>
+        {{/user}}
+    </div>
+
     <div class="text-right" style="padding: 10px;">
         <a href="/new" class="btn btn-primary">
             Write in the guestbook
