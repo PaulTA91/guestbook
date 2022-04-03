@@ -1,5 +1,4 @@
 const nedb = require("nedb");
-
 class GuestBook {
   constructor(dbFilePath) {
     if (dbFilePath) {
@@ -9,7 +8,7 @@ class GuestBook {
       this.db = new nedb();
     }
   }
-
+  //a function to seed the database
   init() {
     this.db.insert({
       subject: "I liked the exhibition",
@@ -19,6 +18,7 @@ class GuestBook {
     });
     //for later debugging
     console.log("db entry Peter inserted");
+
     this.db.insert({
       subject: "Didn't like it",
       contents: "A really terrible style!",
@@ -28,53 +28,25 @@ class GuestBook {
     //for later debugging
     console.log("db entry Ann inserted");
   }
-
+  //a function to return all entries from the database
   getAllEntries() {
     //return a Promise object, which can be resolved or rejected
     return new Promise((resolve, reject) => {
-      //use the find() function of the database to get the data
+      //use the find() function of the database to get the data,
+      //error first callback function, err for error, entries for data
       this.db.find({}, function (err, entries) {
-        //if err rejects promise
+        //if error occurs reject Promise
         if (err) {
           reject(err);
+          //if no error resolve the promise & return the data
         } else {
           resolve(entries);
+          //to see what the returned data looks like
           console.log("function all() returns: ", entries);
         }
       });
     });
   }
-
-  getEntriesByUser(authorName) {
-    return new Promise((resolve, reject) => {
-      this.db.find({ author: authorName }, function (err, entries) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(entries);
-          console.log("getEntriesByUser returns: ", entries);
-        }
-      });
-    });
-  }
-
-  addEntry(author, subject, contents) {
-    var entry = {
-      author: author,
-      subject: subject,
-      contents: contents,
-      published: new Date().toISOString.split("T")[0],
-    };
-    console.log("entry created", entry);
-    this.db.insert(entry, function (err, doc) {
-      if (err) {
-        console.log("Error inserting document", subject);
-      } else {
-        console.log("document inserted into the database", doc);
-      }
-    });
-  }
-
   getPetersEntries() {
     //return a Promise object, which can be resolved or rejected
     return new Promise((resolve, reject) => {
@@ -93,7 +65,34 @@ class GuestBook {
       });
     });
   }
-}
-//make the module visible outside
 
+  addEntry(author, subject, contents) {
+    var entry = {
+      author: author,
+      subject: subject,
+      contents: contents,
+      published: new Date().toISOString().split("T")[0],
+    };
+    console.log("entry created", entry);
+    this.db.insert(entry, function (err, doc) {
+      if (err) {
+        console.log("Error inserting document", subject);
+      } else {
+        console.log("document inserted into the database", doc);
+      }
+    });
+  }
+  getEntriesByUser(authorName) {
+    return new Promise((resolve, reject) => {
+      this.db.find({ author: authorName }, function (err, entries) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(entries);
+          console.log("getEntriesByUser returns: ", entries);
+        }
+      });
+    });
+  }
+}
 module.exports = GuestBook;
