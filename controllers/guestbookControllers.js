@@ -28,6 +28,10 @@ exports.show_register_page = function (req, res) {
   res.render("user/register");
 };
 
+exports.show_login_page = function (req, res) {
+  res.render("user/login");
+};
+
 exports.show_user_entries = function (req, res) {
   console.log("filtering author name", req.params.author);
   let user = req.params.author;

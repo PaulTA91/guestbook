@@ -1,6 +1,10 @@
 const express = require("express");
 const router = require("./routes/guestbookRoutes");
 const app = express();
+require("dotenv").config();
+
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 const mustache = require("mustache-express");
 app.engine("mustache", mustache());

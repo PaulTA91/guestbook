@@ -20,6 +20,8 @@ router.post("/new", controller.post_new_entry);
 
 router.get("/register", controller.show_register_page);
 
+router.get("/login", controller.show_login_page);
+
 router.use(function (req, res) {
   res.status(404);
   res.type("text/plain");
